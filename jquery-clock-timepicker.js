@@ -1065,7 +1065,7 @@
 				popup.css('display', 'block');
 				repaintClock();
 				if (isMobile()) {
-					if (background) background.stop().css('opacity', 0).css('display', 'block').animate({opacity: 1}, 300);
+					if (background) background.css('opacity', 0).css('display', 'block');
 				} else {
 					//Adjust popup's position horizontally
 					if (popup.outerWidth() > element.outerWidth()) {
@@ -1104,7 +1104,8 @@
 				enteredDigits = '';
 				popup.css('display', 'none');
 				if (isMobile()) {
-					background.stop().animate({opacity: 0}, 300, function() { background.css('display', 'none'); });
+					background.css('opactiy', '0');
+					background.css('display', 'none');
 				} else {
 					element.val(newValue);
 				}
@@ -1143,11 +1144,10 @@
 					clockMinuteCanvas.css('display', 'none');
 				}
 				else {
-					clockMinuteCanvas.css('zIndex', 2).stop().animate({opacity: 0, zoom:'80%', left:'10%', top:'10%'}, settings.modeSwitchSpeed, function() {
-						clockMinuteCanvas.css('display', 'none');
-					});
+					clockMinuteCanvas.css('zIndex', 2).css({opacity: 0, zoom:'80%', left:'10%', top:'10%'});
+					clockMinuteCanvas.css('display', 'none');
 				}
-				clockHourCanvas.stop().css('zoom', '100%')
+				clockHourCanvas.css('zoom', '100%')
 									  .css('left', '0px')
 									  .css('top', '0px')
 									  .css('display', 'block')
@@ -1166,7 +1166,7 @@
 				if (selectionMode == 'MINUTE') return;
 				enteredDigits = '';
 				repaintClockMinuteCanvas();
-				clockMinuteCanvas.stop().css('display', 'block')
+				clockMinuteCanvas.css('display', 'block')
 										.css('zoom', '80%')
 										.css('left', '10%')
 										.css('top', '10%')
@@ -1179,7 +1179,7 @@
 									 .css('top', '0px');
 				}
 				else {
-					clockMinuteCanvas.animate({opacity: 1, zoom:'100%', left:'0px', top:'0px'});
+					clockMinuteCanvas.css({opacity: 1, zoom:'100%', left:'0px', top:'0px'});
 				}
 				selectionMode = 'MINUTE';
 				settings.onModeSwitch.call(element.get(0), selectionMode);
