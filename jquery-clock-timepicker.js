@@ -6,7 +6,6 @@
  (function($) {
 
 	$.fn.clockTimePicker = function(options, _value) {
-
 		/************************************************************************************************
 		  DEFAULT SETTINGS (CAN BE OVERRIDDEN WITH THE OPTIONS ARGUMENT)
 		************************************************************************************************/
@@ -134,13 +133,14 @@
 			var selectionMode = 'HOUR'; //2 modes: 'HOUR' or 'MINUTE'
 			var isDragging = false;
 			var touchSignButton = false;
-			var popupWidth = isMobile() ? $(document).width() - 80 : settings.popupWidthOnDesktop;
+			// var popupWidth = isMobile() ? $(document).width() - 80 : settings.popupWidthOnDesktop;
+			var popupWidth = $(document).width();
 			var canvasSize = popupWidth - (isMobile() ? 50 : 20);
 			var clockRadius = parseInt(canvasSize / 2);
 			var clockCenterX = parseInt(canvasSize / 2);
 			var clockCenterY = parseInt(canvasSize / 2);
-			var clockOuterRadius = clockRadius - 16;
-			var clockInnerRadius = clockOuterRadius - 29;
+			var clockOuterRadius = clockRadius - parseInt(settings.fonts.clockOuterCircleFontSize);
+			var clockInnerRadius = clockOuterRadius - parseInt(settings.fonts.clockInnerCircleFontSize) * 1.5;
 			var isTimeChanged = false;
 
 
@@ -828,7 +828,7 @@
 					ctx.beginPath();
 					ctx.arc(clockCenterX + Math.cos(Math.PI / 6 * ((hour % 12) - 3)) * (hour > 12 ? (settings.afternoonHoursInOuterCircle ? clockOuterRadius : clockInnerRadius) : (settings.afternoonHoursInOuterCircle ? clockInnerRadius : clockOuterRadius)),
 							clockCenterY + Math.sin(Math.PI / 6 * ((hour % 12) - 3)) * (hour > 12 ? (settings.afternoonHoursInOuterCircle ? clockOuterRadius : clockInnerRadius) : (settings.afternoonHoursInOuterCircle ? clockInnerRadius : clockOuterRadius)),
-							15, 0, 2 * Math.PI, false);
+							30, 0, 2 * Math.PI, false);
 					ctx.fillStyle = settings.colors.selectorColor;
 					ctx.fill();
 				}
@@ -925,7 +925,7 @@
 						ctx.beginPath();
 						ctx.arc(clockCenterX + Math.cos(Math.PI / 6 * ((hoverMinute / 5) - 3)) * clockOuterRadius,
 								clockCenterY + Math.sin(Math.PI / 6 * ((hoverMinute / 5) - 3)) * clockOuterRadius,
-								15, 0, 2 * Math.PI, false);
+								30, 0, 2 * Math.PI, false);
 						ctx.fillStyle = settings.colors.hoverCircleColor;
 						ctx.fill();
 					}
@@ -947,7 +947,7 @@
 					ctx.beginPath();
 					ctx.arc(clockCenterX + Math.cos(Math.PI / 6 * ((min / 5) - 3)) * clockOuterRadius,
 							clockCenterY + Math.sin(Math.PI / 6 * ((min / 5) - 3)) * clockOuterRadius,
-							15, 0, 2 * Math.PI, false);
+							30, 0, 2 * Math.PI, false);
 					ctx.fillStyle = settings.colors.selectorColor;
 					ctx.fill();
 				}
@@ -1013,7 +1013,7 @@
 				//Normal mode (enough space for normal popup)
 				else {
 					popupWidth = window.innerWidth - 80;
-					if (popupWidth > 300) popupWidth = 300;
+					// if (popupWidth > 300) popupWidth = 300;
 					popup.css('width', popupWidth + 'px');
 					inputElement.css('position', 'static')
 								.css('width', '100%')
@@ -1030,8 +1030,10 @@
 				clockRadius = parseInt(canvasSize / 2);
 				clockCenterX = parseInt(canvasSize / 2);
 				clockCenterY = parseInt(canvasSize / 2);
-				clockOuterRadius = clockRadius - 16;
-				clockInnerRadius = clockOuterRadius - 29;
+				// clockOuterRadius = clockRadius - 16;
+				// clockInnerRadius = clockOuterRadius - 29;
+				clockOuterRadius = clockRadius - parseInt(settings.fonts.clockOuterCircleFontSize);
+				clockInnerRadius = clockOuterRadius - parseInt(settings.fonts.clockInnerCircleFontSize) * 1.5;
 				canvasHolder.css('width', canvasSize + 'px');
 				canvasHolder.css('height', canvasSize + 'px');
 				
